@@ -2,6 +2,14 @@ const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 
+const connection = mysql.createConnection({
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "@Coolvegas50",
+  database: "EmployeeTracker_DB",
+});
+
 const start = () => {
     inquirer
       .prompt([
@@ -48,6 +56,13 @@ const start = () => {
           }
       });
 };
+
+connection.connect((err) => {
+  if (err) throw err;
+  // console.log(`connected as id ${connection.threadId}`);
+  console.log('Welcome to Employee Tracker');
+  start();
+});
 
 //view a table of all employees using cTable to show in the console
 function viewAllEmployees(){
